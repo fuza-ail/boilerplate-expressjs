@@ -7,8 +7,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
-    "dev": "tsx watch src/app.ts",
-    "docs": "tsx ./src/utils/swagger.ts"
+    "dev": "tsx ./src/utils/swagger.ts && tsx watch src/app.ts"
   },
   "author": "Muhammad Fuzail",
   "license": "ISC",
