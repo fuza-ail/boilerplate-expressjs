@@ -23,3 +23,14 @@ create 'eslint.config.mjs
 create `.prettierrc`
 
 ## Create Dockerfile
+
+## Setup cors, json parser, url-encoded, cookie-parser
+
+## Add morgan for logger
+
+## setup express-rate-limit and helmet, compression
+
+## Add swagger
+
+`npm install --save-dev swagger-autogen`
+`npm install swagger-ui-express`
