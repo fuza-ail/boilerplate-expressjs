@@ -1,6 +1,6 @@
-import express, { Request, Response } from 'express'
+import express, { Application, Request, Response } from 'express'
 import swaggerUi from 'swagger-ui-express'
-import swaggerDocs from './api-docs.json'
+import swaggerDocs from './utils/api-docs.json'
 import cors from 'cors'
 import { rateLimit } from 'express-rate-limit'
 import cookieParser from 'cookie-parser'
@@ -8,9 +8,10 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import compression from 'compression'
 
-import router from './routers'
+import router from './routes'
+import { AppDataSource } from './config/data-source'
 
-const app = express()
+const app: Application = express()
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -42,6 +43,11 @@ app.use(router)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 app.get('/api-docs', swaggerUi.setup(swaggerDocs))
 
-app.listen(3000, () => {
-  console.log('App listening on port 3000')
-})
+AppDataSource.initialize()
+  .then(() => {
+    console.log('Database connection success')
+    app.listen(3000, () => {
+      console.log('App listening on port 3000')
+    })
+  })
+  .catch((err) => console.error(err))
